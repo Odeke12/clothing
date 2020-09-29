@@ -1,0 +1,40 @@
+{% extends "shop/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ user.username }}</h2>
+          <p class="text-secondary">{{ user.email }}</p>
+        </div>
+      </div>
+ </div>
+        <div class="content-section">
+           <form method="POST" enctype="multipart/form-data"><!-- enctype helps to save the image in the background--> 
+                {% csrf_token %} 
+               <fieldset class="form-group">
+                   <legend class="border-bottom mb-4">Profile Info</legend>
+                   {{ u_form|crispy }}
+                   {{ p_form|crispy }}
+                   
+               </fieldset>
+               <div class="form-group">
+               <button class="btn btn-outline-info" type="submit">Update</button>
+               </div>
+           </form>
+    </div> 
+    <div class="d-flex flex-row comment-row m-t-0">
+        <div class="p-2"><img src="{{ user.profile.image.url }}" alt="user" width="50" class="rounded-circle"></div>
+        <div class="comment-text w-100">
+            <h6 class="font-medium">James Anderson</h6>
+            <span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry. </span>
+            <div class="comment-footer">
+                <span class="text-muted float-right">April 14, 2016</span> 
+                <button type="button" class="btn btn-cyan btn-sm">Edit</button>
+                <button type="button" class="btn btn-success btn-sm">Publish</button>
+                <button type="button" class="btn btn-danger btn-sm">Delete</button>
+            </div>
+        </div>
+    </div>
+{% endblock content%} 

@@ -1,0 +1,137 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block content %}
+<!doctype html>
+
+    <!-- banner part start-->
+    <section class="banner_part">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <div class="banner_slider">
+                        <div class="single_banner_slider">
+                            <div class="banner_text">
+                                <div class="banner_text_iner">
+                                    <h5>Winter Fasion</h5> 
+                                    <h1>Fashion Collection 2019</h1>
+                                    <a href="{% url 'shop-category' %}" class="btn_1">shop now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- banner part start-->
+ 
+    <!-- feature_part start-->
+    <section class="feature_part pt-4">
+        <div class="container-fluid p-lg-0 overflow-hidden">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="single_feature_post_text">
+                        <img src="{% static 'shop/img/feature_1.png' %}" alt="#">
+                        <div class="hover_text">
+                            <a href="{% url 'shop-male' %}" class="btn_2">shop for men</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="single_feature_post_text">
+                        <img src="{% static 'shop/img/feature_2.png' %}" alt="#">
+                        <div class="hover_text">
+                            <a href="{% url 'shop-female' %}" class="btn_2">shop for women</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="single_feature_post_text">
+                        <img src="{% static 'shop/img/feature_3.png' %}" alt="#">
+                        <div class="hover_text">
+                            <a href="{% url 'shop-shoes' %}" class="btn_2">shop for shoes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- upcoming_event part start-->
+
+    <!-- new arrival part here -->
+    <section class="new_arrival section_padding">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="arrival_tittle">
+                        <h2>new arrival</h2>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="arrival_filter_item filters">
+                        <ul>
+                            <li class="active controls" data-filter="*">all</li>
+                            <li class="controls" data-toggle=".men">men</li>
+                            <li class="controls" data-toggle=".women">women</li>
+                            <li class="controls" data-toggle=".shoes">shoes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="new_arrival_iner filter-container">
+                        {% for item in items %}
+                        {% if item.gender == 'M' %}
+                        <div class="single_arrivel_item weidth_3 mix women men">
+                        {% elif item.gender == 'F' %}
+                        <div class="single_arrivel_item weidth_2 mix women">
+                        {% elif item.gender == 'MF' %}
+                        <div class="single_arrivel_item weidth_3 mix women men">
+                        {% elif item.gender == 'M' and item.category == 'S' %}
+                        <div class="single_arrivel_item weidth_1 mix shoes men">
+                        {% elif item.gender == 'F' and item.category == 'shoes' %}
+                        <div class="single_arrivel_item weidth_3 mix shoes women">
+                       {% elif item.category == 'S' %}
+                        <div class="single_arrivel_item weidth_1 mix shoes">
+                        {% else %}
+                        <div class="single_arrivel_item weidth_1 mix *">
+                        {% endif %}
+                            <img height="400" width="50" src="{{ item.image1.url }}" alt="#">
+                            <div class="hover_text">
+                                <p>{{ item.brand }}</p>
+                                <a href="{{ item.get_absolute_url }}"><h3>{{ item.name }}</h3></a>
+                                <div class="rate_icon">
+                                    <a href="#"> <i class="fas fa-star"></i> </a>
+                                    <a href="#"> <i class="fas fa-star"></i> </a>
+                                    <a href="#"> <i class="fas fa-star"></i> </a>
+                                    <a href="#"> <i class="fas fa-star"></i> </a>
+                                    <a href="#"> <i class="fas fa-star"></i> </a>
+                                </div>
+                                    {% if item.discount_price %}
+                                    <h5>{{ item.discount_price }}</h5>
+                                    {% else %}
+                                <h5>{{ item.price }}</h5>
+                                    {% endif %}
+                                
+                                <div class="social_icon">
+                                    <a href="#"><i class="ti-heart"></i></a>
+                                    <a href="#"><i class="ti-bag"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %} 
+                    </div>
+                  
+                </div> 
+                  
+            </div>
+        </div>
+    </section>
+    <!-- new arrival part end -->
+
+
+{% endblock content %}
